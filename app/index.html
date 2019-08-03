@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Income Calculator</title>
+
+<link rel="stylesheet" type="text/css" href="css/style.css">
+
+</head>
+
+<body>
+	<h1>Centrelink Income Reporting Calculator</h1>
+	<form id="form">
+		<fieldset>
+			<legend> Set unpaid breaks (optional) </legend>
+			
+			<label for="breakMin">
+				Minimum shift length for break
+			</label><br>
+			<input id="breakMin" type="text" name="breakMin"> 
+			<small>
+			(shifts this length and longer receive a break)
+			</small><br>
+
+			<label for="breakLength">
+				Break Length
+			</label><br>
+			<input id="breakLength" type="text" name="breakLength">
+			<small>
+			enter break length in minutes e.g 30
+			</small>
+
+		</fieldset>
+		<fieldset>
+			<legend> Set pay rate </legend>
+			<label for="payset">
+				Pay Rate
+			</label>
+			<select id="payset" name="payset">
+				<option value="select">---Select---</option>
+				<option value="retail">General Retail Award (Casual)</option>
+				<option value="custom">Custom</option>
+			</select><br>
+			
+			<div id="custompay" style="display:none;">
+			<input id="custompayrate" type="text" name="custompayrate">
+			<button id="custombutton" type="button" value="Clear">Add</button>
+			<select id="custompayset" name="custompayset">
+			</select>
+			</div>
+		
+			<div id="payratediv" style="display:none;">
+			<label for="payrate">
+				Hourly rate for this shift
+			</label>
+			<select id="payrate" name="payrate">
+				<option value="26.76">26.76</option>
+				<option value="29.97">29.97</option>
+				<option value="39.61">39.61</option>
+			</select>
+			</div>
+
+		</fieldset>
+
+		<fieldset>
+			<legend>Enter shift times</legend>
+			<p id="description"> Enter shift times in 24 hour format e.g 18:33. </p>
+			<label for="starttime">
+				Start Time
+			</label><br>
+			<input id="starttime" type="text" name="starttime"><br>	
+
+			<label for="endtime">
+				End Time
+			</label><br>
+			<input id="endtime" type="text" name="endtime"><br>
+		</fieldset>
+		
+		<div id="sendform">
+		<button class="button" type="submit" value="Add shift">Add Shift</button>
+		<button class="button" id="clear" type="button" value="Clear">Clear</button>
+		</div>
+
+	</form>
+	
+	<div id="totals">
+	<label for="hours">
+		Total Hours:
+	</label>
+	<p id="hours"> 0 </p>
+
+	<Label for="pay">
+	Total pay: 
+	</label>
+	<p id="pay"> 0 </p>
+	</div>
+
+	<table id="shiftTable">
+		<tr>
+			<th>Shift Start</th>
+			<th>Shift End</th>
+			<th>Shift Length</th>
+			<th>Shift Pay Rate</th>
+			<th>Shift Pay</th>
+		</tr>
+	</table>
+
+<script src="js/calculatorscript.js"></script>
+<script src = "libraries/moment.js"></script>
+
+</body>
+
+</html>
