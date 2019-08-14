@@ -1,35 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<title>Income Calculator</title>
+	<meta charset="utf-8" />
+	<meta name="description" content="This app lets you easily calculate your weekly hours and pay for Centrelink income reporting." />
+	<meta name="author" content="Osman Branjerdporn" />
 
-<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title>Income Calculator</title>
 
+	<!-- CSS -->
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 
 <body>
 	<h1>Centrelink Income Reporting Calculator</h1>
+	
+	<!-- Form for entering shift details -->
 	<form id="form">
 		<fieldset>
 			<legend> Set unpaid breaks (optional) </legend>
 			
-			<label for="breakMin">
-				Minimum shift length for break
-			</label><br>
-			<input id="breakMin" type="text" name="breakMin"> 
-			<small>
-			(shifts this length and longer receive a break)
-			</small><br>
+			<div class="gridwrapper">
+				<div class="wrapper">
+					<label for="breakMin">
+						Minimum shift length for break
+					</label><br>
+					<input id="breakMin" type="text" name="breakMin"> 
+					<small>
+					Enter shift length in hours e.g 5.5 (shifts this length and longer receive a break)
+					</small>
+				</div>
 
-			<label for="breakLength">
-				Break Length
-			</label><br>
-			<input id="breakLength" type="text" name="breakLength">
-			<small>
-			enter break length in minutes e.g 30
-			</small>
-
+				<div class="wrapper">
+					<label for="breakLength">
+						Break Length
+					</label><br>
+					<input id="breakLength" type="text" name="breakLength">
+					<small>
+					Enter break length in minutes e.g 30
+					</small>
+				</div>
+			</div>
 		</fieldset>
+
 		<fieldset>
 			<legend> Set pay rate </legend>
 			<label for="payset">
@@ -37,7 +50,7 @@
 			</label>
 			<select id="payset" name="payset">
 				<option value="select">---Select---</option>
-				<option value="retail">General Retail Award (Casual)</option>
+				<option value="retail">General Retail Award (Casual - Level 1)</option>
 				<option value="custom">Custom</option>
 			</select><br>
 			
@@ -58,7 +71,6 @@
 				<option value="39.61">39.61</option>
 			</select>
 			</div>
-
 		</fieldset>
 
 		<fieldset>
@@ -67,7 +79,7 @@
 			<label for="starttime">
 				Start Time
 			</label><br>
-			<input id="starttime" type="text" name="starttime"><br>	
+			<input id="starttime" type="text" name="starttime"><br>
 
 			<label for="endtime">
 				End Time
@@ -75,13 +87,19 @@
 			<input id="endtime" type="text" name="endtime"><br>
 		</fieldset>
 		
-		<div id="sendform">
-		<button class="button" type="submit" value="Add shift">Add Shift</button>
-		<button class="button" id="clear" type="button" value="Clear">Clear</button>
+		<div class="sendform">
+			<div class="wrapper">
+				<button class="button" type="submit" value="Add shift">Add Shift</button>
+			</div>
+			
+			<div class="wrapper">
+				<button class="button" id="clear" type="button" value="Clear">Clear</button>
+			</div>
 		</div>
 
 	</form>
 	
+	<!-- Display hours worked and total income -->
 	<div id="totals">
 	<label for="hours">
 		Total Hours:
@@ -94,6 +112,7 @@
 	<p id="pay"> 0 </p>
 	</div>
 
+	<!-- Track all calculated shifts -->
 	<table id="shiftTable">
 		<tr>
 			<th>Shift Start</th>
@@ -104,7 +123,10 @@
 		</tr>
 	</table>
 
+<!-- Script -->
 <script src="js/calculatorscript.js"></script>
+
+<!-- Libraries -->
 <script src = "libraries/moment.js"></script>
 
 </body>

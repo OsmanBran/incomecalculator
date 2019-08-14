@@ -1,29 +1,36 @@
+/* Global Variables */
+var totalHours = 0.0; // total hours for period
+var totalPay = 0.0; // total pay for period
+var isCustom = false;
+
+/* Add event listeners */
+
+// Calculate shifts when form is submitted
 var form = document.getElementById("form");
 form.addEventListener("submit", function(evt){
   evt.preventDefault();
   addShift();
 })
 
+// Clear all shifts for period
 var clear = document.getElementById("clear");
 clear.addEventListener("click", clearShifts);
 
+// Receive custom pay input
 var customButton = document.getElementById("custombutton");
 customButton.addEventListener("click", updateCustomList);
 
+// Change between pay sets
 var paylist = document.getElementById("payset");
 paylist.addEventListener("change", getPayRate);
 
-// initialise nummber of hours and pay
-var totalHours = 0.0;
-var totalPay = 0.0;
-var isCustom = false;
-
+// Display appropriate menu for choosing pay
 function getPayRate()
 {
-  var list1 = document.getElementById("payset");
-  var list2 = document.getElementById("payratediv");
-  var list3 = document.getElementById("custompay")
-  var selectedPaySet = list1.options[list1.selectedIndex].value;
+  var list1 = document.getElementById("payset"); // List displaying lists of pay
+  var list2 = document.getElementById("payratediv"); // List of retail pay
+  var list3 = document.getElementById("custompay"); // List of custom pay
+  var selectedPaySet = list1.options[list1.selectedIndex].value; // selected option
 
   if (selectedPaySet == "retail")
   {
@@ -39,9 +46,9 @@ function getPayRate()
   }
 }
 
+// Validate shift start and end times as valid time formats
 function validate()
 {
-
   if(form.payset.value == "select")
   {
     alert("Please select pay rate");
@@ -81,6 +88,7 @@ function validate()
   return true;
 }
 
+// Calculate shift pay and hours and add to total pay, hours worked and table.
 function addShift()
 {
   if(validate())
@@ -117,6 +125,7 @@ function addShift()
 
     // Get total pay
     var payRateString;
+    // Determine which list is being used to select pay
     if (isCustom)
     {
       payRateString = form.custompayset.value
@@ -125,22 +134,30 @@ function addShift()
     {
       payRateString = form.payrate.value
     }
+    // Find pay for shift
     var shiftPay = parseFloat(payRateString) * difference;
-    totalPay = totalPay + shiftPay;
-    document.getElementById("pay").innerHTML = "$" + totalPay.toFixed(2);
 
+    // Add to total pay
+    totalPay = totalPay + shiftPay;
+    // Update HTML
+    document.getElementById("pay").innerHTML = "$" + totalPay.toFixed(2);
+    // Update table
     updateTable(startString, endString, difference.toFixed(2), payRateString, shiftPay.toFixed(2));
   }
 }
 
+// Clear all currently recorded shifts
 function clearShifts()
 {
+  // Set hours and pay to 0
   totalHours = 0.0;
   totalPay = 0.0;
+  // Update HTML
   document.getElementById("hours").innerHTML = totalHours.toFixed(2);
   document.getElementById("pay").innerHTML = "$" + totalPay.toFixed(2);
 
-  var table = document.getElementById("shiftTable")
+  // Remove all shifts displayed in table
+  var table = document.getElementById("shiftTable");
   var noRows = (table.rows.length - 1);
   for (var i = 0; i < noRows; i++)
   {
@@ -148,28 +165,32 @@ function clearShifts()
   }
 }
 
+// Update table to display a shift
 function updateTable(start, end, length, rate, totalpay)
 {
   var table = document.getElementById("shiftTable");
   var row = table.insertRow(1);
-  var cell1 = row.insertCell(0);
-  var cell2 = row.insertCell(1);
-  var cell3 = row.insertCell(2);
-  var cell4 = row.insertCell(3);
-  var cell5 = row.insertCell(4);
-  cell1.innerHTML = start;
-  cell2.innerHTML = end;
-  cell3.innerHTML = length;
-  cell4.innerHTML = rate;
-  cell5.innerHTML = totalpay;
+  var startcell = row.insertCell(0);
+  var endcell = row.insertCell(1);
+  var lengthcell = row.insertCell(2);
+  var ratecell = row.insertCell(3);
+  var totalpaycell = row.insertCell(4);
+
+  // Set cells to display relevant information
+  startcell.innerHTML = start;
+  endcell.innerHTML = end;
+  lengthcell.innerHTML = length;
+  ratecell.innerHTML = rate;
+  totalpaycell.innerHTML = totalpay;
 
 }
 
+// Update list to show custom pay rates entered
 function updateCustomList()
 {
   var newPay = form.custompayrate.value;
+  
   // check valid input
-
   reg = /[0-9]+(\.[0-9][0-9]?)?/;
   if (!newPay.match(reg))
   {
@@ -183,5 +204,4 @@ function updateCustomList()
     option.text = newPay.match(reg)[0];
     list.add(option);
   }
-  // error checking goes here on newPay
 }
