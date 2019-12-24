@@ -45,31 +45,22 @@
 
 		<fieldset>
 			<legend> Set pay rate </legend>
-			<label for="payset">
-				Pay Rate
+			<label for="newpay">
+			Enter new pay rate
 			</label>
-			<select id="payset" name="payset">
-				<option value="select">---Select---</option>
-				<option value="retail">General Retail Award (Casual - Level 1)</option>
-				<option value="custom">Custom</option>
-			</select><br>
+			<div id="newpay">
+			<input id="newpayrate" type="text" name="newpayrate">
+			<button id="custombutton" type="button" value="Add">Add</button>
+			<br>
 			
-			<div id="custompay" style="display:none;">
-			<input id="custompayrate" type="text" name="custompayrate">
-			<button id="custombutton" type="button" value="Clear">Add</button>
-			<select id="custompayset" name="custompayset">
-			</select>
-			</div>
-		
-			<div id="payratediv" style="display:none;">
-			<label for="payrate">
-				Hourly rate for this shift
+			<label for="paylist">
+			Select pay rate
 			</label>
+			<div id="paylist">
 			<select id="payrate" name="payrate">
-				<option value="26.76">26.76</option>
-				<option value="29.97">29.97</option>
-				<option value="39.61">39.61</option>
+				<option value="select">---Select---</option>
 			</select>
+			<button id="clearpayrate" type="button" value="Clear">Clear</button>
 			</div>
 		</fieldset>
 

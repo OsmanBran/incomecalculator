@@ -1,7 +1,6 @@
 /* Global Variables */
 var totalHours = 0.0; // total hours for period
 var totalPay = 0.0; // total pay for period
-var isCustom = false;
 
 /* Add event listeners */
 
@@ -18,41 +17,19 @@ clear.addEventListener("click", clearShifts);
 
 // Receive custom pay input
 var customButton = document.getElementById("custombutton");
-customButton.addEventListener("click", updateCustomList);
+customButton.addEventListener("click", updateList);
 
-// Change between pay sets
-var paylist = document.getElementById("payset");
-paylist.addEventListener("change", getPayRate);
-
-// Display appropriate menu for choosing pay
-function getPayRate()
-{
-  var list1 = document.getElementById("payset"); // List displaying lists of pay
-  var list2 = document.getElementById("payratediv"); // List of retail pay
-  var list3 = document.getElementById("custompay"); // List of custom pay
-  var selectedPaySet = list1.options[list1.selectedIndex].value; // selected option
-
-  if (selectedPaySet == "retail")
-  {
-    list2.style.display="inline-block";
-    list3.style.display="none";
-    isCustom = false;
-  }
-  else if (selectedPaySet == "custom")
-  {
-    list3.style.display="inline-block";
-    list2.style.display="none";
-    isCustom = true;
-  }
-}
+// Clear all entered pay rates
+var clearPay = document.getElementById("clearpayrate");
+clearPay.addEventListener("click", clearPayRates);
 
 // Validate shift start and end times as valid time formats
-function validate()
+function validatetime()
 {
-  if(form.payset.value == "select")
+  if(form.payrate.value == "select")
   {
     alert("Please select pay rate");
-    form.payset.focus();
+    form.payrate.focus();
     return false;
   }
 
@@ -91,7 +68,7 @@ function validate()
 // Calculate shift pay and hours and add to total pay, hours worked and table.
 function addShift()
 {
-  if(validate())
+  if(validatetime())
   {
     var startString = form.starttime.value;
     var endString = form.endtime.value;
@@ -124,23 +101,19 @@ function addShift()
     document.getElementById("hours").innerHTML = totalHours.toFixed(2);
 
     // Get total pay
-    var payRateString;
+    var payRateString = form.payrate.value;
     // Determine which list is being used to select pay
-    if (isCustom)
-    {
-      payRateString = form.custompayset.value
-    }
-    else
-    {
-      payRateString = form.payrate.value
-    }
+
+
     // Find pay for shift
     var shiftPay = parseFloat(payRateString) * difference;
 
     // Add to total pay
     totalPay = totalPay + shiftPay;
+
     // Update HTML
     document.getElementById("pay").innerHTML = "$" + totalPay.toFixed(2);
+    
     // Update table
     updateTable(startString, endString, difference.toFixed(2), payRateString, shiftPay.toFixed(2));
   }
@@ -185,23 +158,37 @@ function updateTable(start, end, length, rate, totalpay)
 
 }
 
-// Update list to show custom pay rates entered
-function updateCustomList()
+// Update list to show pay rates entered
+function updateList()
 {
-  var newPay = form.custompayrate.value;
+  var newPay = form.newpayrate.value;
   
   // check valid input
   reg = /[0-9]+(\.[0-9][0-9]?)?/;
   if (!newPay.match(reg))
   {
     alert("Please enter a valid number with up to 2 decimal places");
-    form.custompayrate.focus();
+    form.newpayrate.focus();
   } 
   else
   {
+    // Enter pay onto list
     var option = document.createElement("option");
-    var list = document.getElementById("custompayset");
+    var list = document.getElementById("payrate");
     option.text = newPay.match(reg)[0];
     list.add(option);
+  }
+}
+
+// Clear all entered pay rates
+function clearPayRates()
+{
+  var select = document.getElementById("payrate")
+  var length = select.options.length
+
+  var i;
+  for(i = length-1; i > 0 ; i--)
+  {
+    select.remove(i);
   }
 }
