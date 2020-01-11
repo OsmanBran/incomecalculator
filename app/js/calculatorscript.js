@@ -2,6 +2,34 @@
 var totalHours = 0.0; // total hours for period
 var totalPay = 0.0; // total pay for period
 
+/* Storage stuff */
+// Global list
+var savedPays = [];
+
+// Retrieve stuff
+window.onload = function() {
+  var defaultValue = [];
+  chrome.storage.sync.get({'myPays': defaultValue}, function(data){
+    savedPays = data.myPays;
+    console.log('savedPays loaded');
+  })
+
+  for (var i = 0; i < savedPays.length; i++){
+    // Enter pay onto list
+    var option = document.createElement("option");
+    var list = document.getElementById("payrate");
+    option.text = savedPays[i];
+    // Add to HTML
+    list.add(option);
+  }
+}
+
+// Set stuff // important move this to appropriate place (probably where you ads in list)
+//https://stackoverflow.com/questions/31122797/making-an-array-in-chrome-storage-and-retrieving-data?lq=1
+
+// Learn how to display a list using a javascript array
+//https://stackoverflow.com/questions/28677745/make-a-html-unordered-list-from-javascript-array/28677901
+
 /* Add event listeners */
 
 // Calculate shifts when form is submitted
@@ -176,7 +204,15 @@ function updateList()
     var option = document.createElement("option");
     var list = document.getElementById("payrate");
     option.text = newPay.match(reg)[0];
+    // Add to HTML
     list.add(option);
+    // Add to array to be saved
+    savedPays.push(option);
+
+    // Add to google chrome storage
+    chrome.storage.sync.set({'myPays': savedPays}, function(){
+      console.log('Pay saved');
+    });
   }
 }
 
