@@ -11,6 +11,7 @@ This app was created while trying to find an easier way to report my income to C
 I plan on adding the following features in the future:
 
   • Improve UI with Bootstrap CSS - mobile compatability + overall design
+  
   • Improved error handling
 
 ## License
