@@ -112,7 +112,7 @@ function addShift()
     var breakFloat = parseFloat(breakString);
 
     // Check if break is applied
-    if (difference >= breakFloat)
+    if (difference > breakFloat)
     {
       // Convert break in minutes to break to hours
       var breakLengthFloat = (parseFloat(breakLengthString) / 60);
