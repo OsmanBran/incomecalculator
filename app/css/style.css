@@ -4,9 +4,11 @@ body {
 	font-family: 'Roboto', sans-serif;
 }
 
+/*
 h1 {
 	text-align: center;
 }
+
 
 label {
 	font-size: 14px;
@@ -41,18 +43,12 @@ fieldset {
 	border: 2px groove (internal value);
 }
 
-.gridwrapper {
-	display: grid;
-  	grid-template-columns: 50% 50%;
-}
 
 .sendform {
 	text-align: center;
 }
 
-.wrapper {
-	display: inline-block;
-}
+
 
 .button {
 	text-align: center;
@@ -94,3 +90,5 @@ fieldset {
   	background-color: #009999;
   	color: white;
 }
+
+*/

@@ -10,110 +10,129 @@
 
 	<!-- CSS -->
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 
-<body>
-	<h1>Centrelink Income Reporting Calculator</h1>
-	
-	<!-- Form for entering shift details -->
-	<form id="form">
-		<fieldset>
-			<legend> Set unpaid breaks (optional) </legend>
-			
-			<div class="gridwrapper">
-				<div class="wrapper">
-					<label for="breakMin">
-						Minimum shift length without break
-					</label><br>
-					<input id="breakMin" type="text" name="breakMin"> 
-					<small>
-					Enter shift length in hours e.g 5 (shifts longer than this require breaks)
-					</small>
-				</div>
-
-				<div class="wrapper">
-					<label for="breakLength">
-						Break Length
-					</label><br>
-					<input id="breakLength" type="text" name="breakLength">
-					<small>
-					Enter break length in minutes e.g 30
-					</small>
-				</div>
-			</div>
-		</fieldset>
-
-		<fieldset>
-			<legend> Set pay rate </legend>
-			<label for="newpay">
-			Enter new pay rate
-			</label>
-			<div id="newpay">
-			<input id="newpayrate" type="text" name="newpayrate">
-			<button id="custombutton" type="button" value="Add">Add</button>
-			<br>
-			
-			<label for="paylist">
-			Select pay rate
-			</label>
-			<div id="paylist">
-			<select id="payrate" name="payrate">
-				<option value="select">---Select---</option>
-			</select>
-			<button id="clearpayrate" type="button" value="Clear">Clear</button>
-			</div>
-		</fieldset>
-
-		<fieldset>
-			<legend>Enter shift times</legend>
-			<p id="description"> Enter shift times in 24 hour format e.g 18:33. </p>
-			<label for="starttime">
-				Start Time
-			</label><br>
-			<input id="starttime" type="text" name="starttime"><br>
-
-			<label for="endtime">
-				End Time
-			</label><br>
-			<input id="endtime" type="text" name="endtime"><br>
-		</fieldset>
-		
-		<div class="sendform">
-			<div class="wrapper">
-				<button class="button" type="submit" value="Add shift">Add Shift</button>
-			</div>
-			
-			<div class="wrapper">
-				<button class="button" id="clear" type="button" value="Clear">Clear</button>
+<body>	
+	<div class="container">
+		<div class="row">
+			<div class="container text-center">
+				<h1>Centrelink Income Reporting Calculator</h1>
 			</div>
 		</div>
+		
+		<div class="row">
+			<div class="col mt-x-3">
+				<!-- Form for entering shift details -->
+				<form id="form">
+					<div class="card my-2">
+						<div class="card-header text-white bg-info">
+							<strong>Set unpaid breaks (optional)</strong>
+						</div>
 
-	</form>
-	
-	<!-- Display hours worked and total income -->
-	<div id="totals">
-	<label for="hours">
-		Total Hours:
-	</label>
-	<p id="hours"> 0 </p>
+						<div class="card-body">	
+							<label for="breakMin">
+								Enter minimum shift length without break (hours)
+							</label><br>
+							<input id="breakMin" type="text" name="breakMin"> 
+							<small>
+							e.g 5 (shifts longer than this require breaks)
+							</small>
+							<label for="breakLength">
+								Enter break length (mins)
+							</label><br>
+							<input id="breakLength" type="text" name="breakLength">
+							<small>
+							e.g 30
+							</small>
+						</div>
+					</div>
 
-	<Label for="pay">
-	Total pay: 
-	</label>
-	<p id="pay"> 0 </p>
+					<div class="card my-2">
+						<div class="card-header text-white bg-info">
+							<strong>Set pay rate</strong>
+						</div>
+
+						<div class="card-body">
+							<label for="newpay">
+							Enter new pay rate
+							</label>
+
+							<div id="newpay">
+								<input id="newpayrate" type="text" name="newpayrate">
+								<button id="custombutton" type="button" value="Add">Add</button>
+							</div>
+								
+							<label for="paylist">
+							Select pay rate
+							</label>
+
+							<div id="paylist">
+								<select id="payrate" name="payrate">
+									<option value="select">---Select---</option>
+								</select>
+								<button id="clearpayrate" type="button" value="Clear">Clear</button>
+							</div>
+						</div>
+					</div>
+
+					<div class="card my-2">
+						<div class="card-header text-white bg-info">
+							<strong>Enter shift times</strong>
+						</div>
+
+						<div class="card-body">
+							<p id="description"> Enter shift times in 24 hour format e.g 18:33. </p>
+							<label for="starttime">
+								Start Time
+							</label><br>
+							<input id="starttime" type="text" name="starttime"><br>
+
+							<label for="endtime">
+								End Time
+							</label><br>
+							<input id="endtime" type="text" name="endtime"><br>
+						</div>
+					</div>
+					
+					<div class="container text-center my-2">
+						<button class="btn btn-info btn-lg" type="submit" value="Add shift">Add Shift</button>
+						<button class="btn btn-secondary btn-lg" id="clear" type="button" value="Clear">Clear</button>
+					</div>
+				</form>
+			</div>
+
+			<div class="col mt-x-3">
+				<!-- Display hours worked and total income -->
+				<div class="card text-center mt-2">
+					<h5 class="card-title">Total Hours:</h5>
+					<p class="card-text" id="hours"> 0 </p>
+
+					<h5 class="card-title">Total Pay:</h5>
+					<p class="card-text" id="pay"> 0 </p>
+				</div>
+
+				<!-- Track all calculated shifts -->
+				<table class="table" id="shiftTable">
+					<thead>
+						<tr>
+							<th>Shift Start</th>
+							<th>Shift End</th>
+							<th>Shift Length</th>
+							<th>Shift Pay Rate</th>
+							<th>Shift Pay</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+
+		</div>
 	</div>
-
-	<!-- Track all calculated shifts -->
-	<table id="shiftTable">
-		<tr>
-			<th>Shift Start</th>
-			<th>Shift End</th>
-			<th>Shift Length</th>
-			<th>Shift Pay Rate</th>
-			<th>Shift Pay</th>
-		</tr>
-	</table>
-
+</div>
 <!-- Script -->
 <script src="js/calculatorscript.js"></script>
 
