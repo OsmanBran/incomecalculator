@@ -6,8 +6,18 @@ var totalPay = 0.0; // total pay for period
 // Global list
 var savedPays = [];
 
-// Retrieve stuff
+// Retrieve stuff from google storage
 window.onload = function() {
+  // Retrieve minimum shift length without break and break length
+  chrome.storage.sync.get({'shift': 5, 'break': 30}, function(data){
+    console.log('loaded min shift is' + data.shift);
+    document.getElementById("breakMin").value = data.shift;
+
+    console.log('loaded break is' + data.break);
+    document.getElementById("breakLength").value = data.break;
+  })
+
+  // Retrieve custom pays
   chrome.storage.sync.get({myPays: []}, function(data){
     // add existing data to array   
     savedPays = data.myPays;
@@ -141,6 +151,12 @@ function addShift()
     
     // Update table
     updateTable(startString, endString, difference.toFixed(2), payRateString, shiftPay.toFixed(2));
+
+    // Save minimum break and break length to google storage
+    chrome.storage.sync.set({'shift': breakString, 'break': breakLengthString}, function() {
+          console.log('Min shift length saved as' + breakString);
+          console.log('Break length saved as' + breakLengthString);
+    });
   }
 }
 
@@ -233,5 +249,4 @@ function clearPayRates()
   }, function(){
     console.log("cleared stored pays!")
   })
-
 }
