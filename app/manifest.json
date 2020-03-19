@@ -2,9 +2,9 @@
   "name": "Centrelink Income Reporting Calculator",
   "manifest_version": 2,
   "version": "1.1.0",
-  "icons": {
-      "128": "icon128.jpg"
-    },
+  "icons": { "16": "icon16.png",
+		  	 "48": "icon48.png",
+		     "128": "icon128.png" },
   "description": "Easily calculate your fortnightly income for centrelink income reporting using this calculator.",
   "permissions": [
     "tabs",
